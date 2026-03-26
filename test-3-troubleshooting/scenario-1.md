@@ -24,34 +24,34 @@ The second command `get endpoints` is the way to see if the Service is connectin
 
 My debugging flow: Service- Endpoints- Ingress- NSG
 
--Service first: I check if it has any endpoints. If `kubectl get endpoints` shows nothing, I know that the selector doesn't match the pod labels
+**Service first:** I check if it has any endpoints. If `kubectl get endpoints` shows nothing, I know that the selector doesn't match the pod labels
 
--Service ports next: I verify the `targetPort` matches the container port my app actually listens on
+**Service ports next:** I verify the `targetPort` matches the container port my app actually listens on
 
--Ingress third: If the Service has endpoints, I check the Ingress host/path rules. Sometimes the backend service name is wrong or the TLS secret is missing
+**Ingress third:** If the Service has endpoints, I check the Ingress host/path rules. Sometimes the backend service name is wrong or the TLS secret is missing
 
--NSG last: This is Azure-specific and often gets overlooked. Even if everything in Kubernetes looks perfect, the NSG on the AKS node subnet might be blocking traffic
+**NSG last:** This is Azure-specific and often gets overlooked. Even if everything in Kubernetes looks perfect, the NSG on the AKS node subnet might be blocking traffic
 
 
 ## 3. Testing whether the problem is at the pod level, the service level or the ingress/network layer
 
 My thought process:
 
-POD LEVEL- first, confirm the app itself is responding:
+**Pod level-** first, confirm the app itself is responding:
 ```bash
 kubectl exec -it <any-pod> -n <namespace> -- curl http://<pod-ip>:<container-port>
 ```
 
 If I can't get a response here, the app might not be listening on the port I think it is. If it works, I move up
 
-SERVICE LEVEL- Hit the Service's ClusterIP from inside the cluster:
+**Service level-** Hit the Service's ClusterIP from inside the cluster:
 ```bash
 kubectl exec -it <any-pod> -n <namespace> -- curl http://<cluster-ip>:<port>
 ```
 
 If this works, the Service is routing traffic correctly. If it fails, I double-check the Service configuration
 
-INGRESS/NETWORK LEVEL- Check if the external IP exists:
+**Ingress/Network level-** Check if the external IP exists:
 ```bash
 kubectl get svc -n <namespace>  
 kubectl describe ingress -n <namespace>
