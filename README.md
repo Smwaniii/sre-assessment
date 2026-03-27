@@ -1,15 +1,6 @@
-# SRE / DevOps Intern Assessment
+# SRE / DevOps Assessment
 
-**Candidate:** Shantal Malesi
-**Repo:** https://github.com/Smwaniii/sre-assessment
-
----
-
-## Overview
-
-This repository contains my submission for the SRE/DevOps Intern assessment. It covers three tests: monitoring stack setup, infrastructure automation and troubleshooting scenarios
-
----
+This repository covers three tests: monitoring stack setup, infrastructure automation and troubleshooting scenarios
 
 ## Test 1- Monitoring Stack
 
