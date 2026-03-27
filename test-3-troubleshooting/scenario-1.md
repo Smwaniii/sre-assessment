@@ -24,13 +24,13 @@ The second command `get endpoints` is the way to see if the Service is connectin
 
 My debugging flow: Service- Endpoints- Ingress- NSG
 
-**Service first:** I check if it has any endpoints. If `kubectl get endpoints` shows nothing, I know that the selector doesn't match the pod labels
+**-Service:** I check if it has any endpoints. If `kubectl get endpoints` shows nothing, I know that the selector doesn't match the pod labels
 
-**Service ports next:** I verify the `targetPort` matches the container port my app actually listens on
+**-Service ports** I verify the `targetPort` matches the container port my app actually listens on
 
-**Ingress third:** If the Service has endpoints, I check the Ingress host/path rules. Sometimes the backend service name is wrong or the TLS secret is missing
+**-Ingress:** If the Service has endpoints, I check the Ingress host/path rules. Sometimes the backend service name is wrong or the TLS secret is missing
 
-**NSG last:** This is Azure-specific and often gets overlooked. Even if everything in Kubernetes looks perfect, the NSG on the AKS node subnet might be blocking traffic
+**-NSG:** This is Azure-specific and often gets overlooked. Even if everything in Kubernetes looks perfect, the NSG on the AKS node subnet might be blocking traffic
 
 
 ## 3. Testing whether the problem is at the pod level, the service level or the ingress/network layer
