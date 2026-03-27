@@ -1,4 +1,4 @@
-# Test 1 — Monitoring Stack
+# Test 1- Monitoring Stack
 
 ## Environment
 I used the local Docker Compose setup on Windows. All services run as Docker containers simulating a containerised cluster environment. Screenshots are included in 
@@ -34,33 +34,32 @@ because:
 
 ## Dashboards
 
-### Dashboard 1 — Cluster Health Overview
+### Dashboard 1- Cluster Health Overview
 Shows CPU usage, memory usage, running containers and failed containers
 Useful for a quick health check of the cluster at any time
 
-### Dashboard 2 — Application Logs
+### Dashboard 2- Application Logs
 Shows all container logs filterable by container name and job
 Includes an error count over time panel to spot error spikes quickly
 
-### Dashboard 3 — On-Call Overview
+### Dashboard 3- On-Call Overview
 I chose this dashboard because on on-call, one needs to easily see which containers are generating the most logs and how many errors have occurred in the last hour. Log rate spikes most times indicate a problem before metrics do
 
 ## Alerts
 
-### Alert 1 — Node CPU Exceeds 80%
+### Alert 1- Node CPU Exceeds 80%
 Fires when CPU usage exceeds 80% for more than 3 minutes
 Sustained high CPU usually means a runaway process or traffic spike
 
-### Alert 2 — Pod CrashLoopBackOff
+### Alert 2- Pod CrashLoopBackOff
 Fires when a pod has been crashing repeatedly for more than 5 minutes
 CrashLoopBackOff is one of the most common and critical pod failure states
 
-### Alert 3 — High Memory Usage (My Choice)
+### Alert 3- High Memory Usage (My Choice)
 Fires when memory exceeds 500MB. I chose this because memory leaks in containerised apps are common and often go unnoticed until the container is OOMKilled. Early detection prevents unexpected restarts.
 
 ## What I Would Improve
-- Set up Promtail to collect real Docker container logs automatically 
-  (Windows made this difficult — on Linux this works out of the box)
-- Add alerting notification channels like Slack or PagerDuty
+- Set up Promtail to collect real Docker container logs automatically- I experienced some difficulty with Windows but I'm sure it works different on Linux
+- Add alerting notification channels like Slack
 - Add more metrics using node-exporter for real hardware metrics
 - Set up persistent alert history

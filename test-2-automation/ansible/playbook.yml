@@ -1,0 +1,74 @@
+---
+- name: Configure VM1 Gateway
+  hosts: gateway
+  become: true
+
+  vars:
+    deploy_user: "deploy"
+    hostname: "sre-gateway"
+
+  tasks:
+
+    - name: Set system hostname
+      hostname:
+        name: "{{ hostname }}"
+
+    - name: Update /etc/hosts with new hostname
+      lineinfile:
+        path: /etc/hosts
+        regexp: '^127\.0\.1\.1'
+        line: "127.0.1.1   {{ hostname }}"
+        state: present
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Ensure nginx is started and enabled on boot
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Deploy a simple index page
+      copy:
+        dest: /var/www/html/index.html
+        content: |
+          <!DOCTYPE html>
+          <html>
+            <head><title>SRE Gateway</title></head>
+            <body>
+              <h1>sre-gateway is up</h1>
+              <p>Provisioned by Terraform + Configured by Ansible</p>
+            </body>
+          </html>
+        owner: www-data
+        group: www-data
+        mode: '0644'
+
+    - name: Create deploy user
+      user:
+        name: "{{ deploy_user }}"
+        shell: /bin/bash
+        create_home: yes
+        state: present
+
+    - name: Add deploy user to sudo group
+      user:
+        name: "{{ deploy_user }}"
+        groups: sudo
+        append: yes
+
+    - name: Allow deploy user passwordless sudo
+      lineinfile:
+        path: /etc/sudoers.d/deploy
+        line: "{{ deploy_user }} ALL=(ALL) NOPASSWD:ALL"
+        create: yes
+        validate: 'visudo -cf %s'
+        mode: '0440'

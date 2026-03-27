@@ -1,0 +1,66 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # virtualbox_vm.vm1_gateway[0m will be created
+[0m  [32m+[0m[0m resource "virtualbox_vm" "vm1_gateway" {
+      [32m+[0m[0m cpus   = 1
+      [32m+[0m[0m id     = (known after apply)
+      [32m+[0m[0m image  = "https://app.vagrantup.com/ubuntu/boxes/jammy64/versions/20230808.0.0/providers/virtualbox.box"
+      [32m+[0m[0m memory = "1024 mib"
+      [32m+[0m[0m name   = "vm1-gateway"
+      [32m+[0m[0m status = "running"
+
+      [32m+[0m[0m network_adapter {
+          [32m+[0m[0m device                 = "IntelPro1000MTServer"
+          [32m+[0m[0m host_interface         = "Intel(R) Wi-Fi 6 AX201 160MHz"
+          [32m+[0m[0m ipv4_address           = (known after apply)
+          [32m+[0m[0m ipv4_address_available = (known after apply)
+          [32m+[0m[0m mac_address            = (known after apply)
+          [32m+[0m[0m status                 = (known after apply)
+          [32m+[0m[0m type                   = "bridged"
+        }
+      [32m+[0m[0m network_adapter {
+          [32m+[0m[0m device                 = "IntelPro1000MTServer"
+          [32m+[0m[0m host_interface         = "VirtualBox Host-Only Ethernet Adapter"
+          [32m+[0m[0m ipv4_address           = (known after apply)
+          [32m+[0m[0m ipv4_address_available = (known after apply)
+          [32m+[0m[0m mac_address            = (known after apply)
+          [32m+[0m[0m status                 = (known after apply)
+          [32m+[0m[0m type                   = "hostonly"
+        }
+    }
+
+[1m  # virtualbox_vm.vm2_appserver[0m will be created
+[0m  [32m+[0m[0m resource "virtualbox_vm" "vm2_appserver" {
+      [32m+[0m[0m cpus   = 1
+      [32m+[0m[0m id     = (known after apply)
+      [32m+[0m[0m image  = "https://app.vagrantup.com/ubuntu/boxes/jammy64/versions/20230808.0.0/providers/virtualbox.box"
+      [32m+[0m[0m memory = "1024 mib"
+      [32m+[0m[0m name   = "vm2-appserver"
+      [32m+[0m[0m status = "running"
+
+      [32m+[0m[0m network_adapter {
+          [32m+[0m[0m device                 = "IntelPro1000MTServer"
+          [32m+[0m[0m host_interface         = "VirtualBox Host-Only Ethernet Adapter"
+          [32m+[0m[0m ipv4_address           = (known after apply)
+          [32m+[0m[0m ipv4_address_available = (known after apply)
+          [32m+[0m[0m mac_address            = (known after apply)
+          [32m+[0m[0m status                 = (known after apply)
+          [32m+[0m[0m type                   = "hostonly"
+        }
+    }
+
+[1mPlan:[0m [0m2 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  [32m+[0m[0m vm1_gateway_name   = "vm1-gateway"
+  [32m+[0m[0m vm2_appserver_name = "vm2-appserver"
+[90m
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ[0m
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.

@@ -1,0 +1,30 @@
+Vagrant.configure("2") do |config|
+  
+  # VM1 - Gateway (publicly accessible)
+  config.vm.define "vm1_gateway" do |vm1|
+    vm1.vm.box = "ubuntu/focal64"
+    vm1.vm.hostname = "sre-gateway"
+    vm1.vm.network "public_network"
+    vm1.vm.network "private_network", ip: "192.168.56.10"
+    
+    vm1.vm.provider "virtualbox" do |vb|
+      vb.name = "vm1-gateway"
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+  end
+
+  # VM2 - App Server (internal only)
+  config.vm.define "vm2_appserver" do |vm2|
+    vm2.vm.box = "ubuntu/focal64"
+    vm2.vm.hostname = "sre-appserver"
+    vm2.vm.network "private_network", ip: "192.168.56.11"
+
+    vm2.vm.provider "virtualbox" do |vb|
+      vb.name = "vm2-appserver"
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+  end
+
+end
